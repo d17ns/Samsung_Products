@@ -1,5 +1,7 @@
-// Service Worker
+// variable CACHE_NAME, yaitu nama cache yang akan digunakan pada service worker
 const CACHE_NAME = 'pwa-cache';
+
+// variable CACHE_FILES, berisikan daftar file yang akan disimpan dalam cache
 const CACHE_FILES = [
     '/',
     '/index.html',
@@ -12,6 +14,9 @@ const CACHE_FILES = [
     '/images/icon-512x512.png',
 ];
 
+// fungsi saat service worker diinstall pada browser
+// maka cache akan dengan kode caches.open(CACHE_NAME)
+// kemudian daftar file pada CACHE_FILES akan ditambahkan ke dalam cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -20,16 +25,20 @@ self.addEventListener('install', (event) => {
   );
 });
 
+// fungsi saat ada permintaan fetching resource
+// fungsi akan memastikan apakah resource ada di dalam cache atau tidak
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
         if (response) {
-          return response; // Found in cache, return the cached response
+          // jika resource ada di dalam cache, maka response akan dikembalikan langsung
+          return response;
         }
-        return fetch(event.request) // Not found in cache, fetch from the network
+        // jika resource tidak ada di dalam cache, maka service worker akan mengambil resource menggunakan internet
+        return fetch(event.request)
           .then((networkResponse) => {
-            // Cache the response for future use
+            // resource tersebut akan disimpan di dalam cache untuk digunakan pada permintaan-permintaan selanjutnya
             const clonedResponse = networkResponse.clone();
             caches.open(CACHE_NAME)
               .then((cache) => {
