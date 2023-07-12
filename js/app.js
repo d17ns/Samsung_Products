@@ -1,3 +1,5 @@
+// fungsi untuk memeriksa apakah browser yang digunakan mendukung service worker
+// jika mendukung, maka akan service worker akan diregistrasi dan dijalankan pada browser
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker
@@ -11,10 +13,11 @@ if ('serviceWorker' in navigator) {
     });
   }
 
-// Define the API URL
+// mendefinisikan URL API yang berisikan data produk yang akan diambil
 const apiUrl = 'https://my-json-server.typicode.com/d17ns/demo/samsung';
 
-// Function to create table rows
+// fungsi untuk membuat baris tabel berdasarkan data produk
+// kemudian baris tabel tersebut diisikan dengan data produk yang akan diambil dari REST API
 function createTableRow(data) {
   const { id, name, price, image } = data;
 
@@ -28,7 +31,8 @@ function createTableRow(data) {
   return row;
 }
 
-// Fetch data from the API and populate the table
+// fungsi untuk mengambil data dari REST API yang sebelumnya sudah didefinisikan URL-nya
+// kemudian memanggil fungsi createTableRow() untuk membuat baris tabel dan mengisinya dengan data produk yang sudah diambil dari REST API
 fetch(apiUrl)
   .then((response) => response.json())
   .then((data) => {
