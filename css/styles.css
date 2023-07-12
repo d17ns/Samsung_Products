@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 20px;
+}
+
+table {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,td {
+  background-color: azure;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  border-bottom: 5px solid #ffffff;
+}
+
+th {
+  font-size: 20px;
+  text-align: center;
+  background-color: skyblue;
+}
+
+td img {
+  display: block;
+  width: 200px;
+  height: auto;
+  margin: 0 auto;
+}
